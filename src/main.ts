@@ -8,7 +8,7 @@ export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    new NodejsFunction(this,'hello-world',{
+    new NodejsFunction(this ,'hello-world',{
       entry:path.join(__dirname,'lambda/hello-world.ts'),
       handler:'handler',
       runtime:Runtime.NODEJS_LATEST,
