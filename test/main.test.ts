@@ -7,5 +7,7 @@ test('Snapshot', () => {
   const stack = new MyStack(app, 'test');
 
   const template = Template.fromStack(stack);
+  template.hasResourceProperties('AWS::Lambda::function', {});
+
   expect(template.toJSON()).toMatchSnapshot();
 });
