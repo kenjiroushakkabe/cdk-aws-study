@@ -1,20 +1,34 @@
 import path from 'path';
-import { App, Stack, StackProps } from 'aws-cdk-lib';
+import { App, CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
+import { HttpApi, HttpMethod } from 'aws-cdk-lib/aws-apigatewayv2';
+import { HttpLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
+
 
 export class MyStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
-    new NodejsFunction(this, 'hello-world', {
+
+
+    const func = new NodejsFunction(this, 'hello-world', {
       entry: path.join(__dirname, 'lambda/hello-world.ts'),
       handler: 'handler',
       runtime: Runtime.NODEJS_LATEST,
       logRetention: RetentionDays.THREE_MONTHS,
     });
+
+    const api = new HttpApi(this, 'Api');
+    api.addRoutes({
+      methods: [HttpMethod.GET],
+      path: '/hello',
+      integration: new HttpLambdaIntegration('hello', func),
+    });
+
+    new CfnOutput(this, 'ApiUrl', {value: api.url!});
   }
 }
 
