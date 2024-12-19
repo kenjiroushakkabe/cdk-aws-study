@@ -19,7 +19,7 @@ export class MyStack extends Stack {
     const alertTopic = new Topic(this, 'alert-topic', {
       fifo: false,
     });
-    alertTopic.addSubscription(new EmailSubscription('kenjiro.shakkabe.zn9@nri-st.co.jp'));
+    alertTopic.addSubscription(new EmailSubscription('my-mailadress'));
 
     const func = new NodejsFunction(this, 'hello-world', {
       entry: path.join(__dirname, 'lambda/hello-world.ts'),
