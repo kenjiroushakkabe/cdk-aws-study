@@ -21,7 +21,7 @@ export class MyStack extends Stack {
     const emailTopic = new Topic(this, 'EmailTopic', {
       fifo: false,
     });
-    emailTopic.addSubscription(new EmailSubscription('kenjiro.shakkabe.zn9@nri-st.co.jp'));
+    emailTopic.addSubscription(new EmailSubscription('my-mailadress'));
 
     //エラー通知用Lambda
     const myFunction = new NodejsFunction(this, 'error-event', {
