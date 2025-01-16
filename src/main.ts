@@ -19,7 +19,7 @@ export class MyStack extends Stack {
     const alertTopic = new Topic(this, 'alert-topic', {
       fifo: false,
     });
-    alertTopic.addSubscription(new EmailSubscription('my-mailadress'));
+    alertTopic.addSubscription(new EmailSubscription('kenjiro.shakkabe.zn9@nri-st.co.jp'));
 
     const func = new NodejsFunction(this, 'hello-world', {
       entry: path.join(__dirname, 'lambda/hello-world.ts'),
@@ -44,7 +44,7 @@ export class MyStack extends Stack {
     });
 
     metric.createAlarm(this, 'error-alarm',{
-      alarmName: 'error-alarm',
+      alarmName: '[IS_8E]',
       evaluationPeriods: 1,
       threshold: 1,
       treatMissingData: TreatMissingData.NOT_BREACHING,
